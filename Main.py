@@ -6,17 +6,6 @@ import Vertices
 import Edges
 import random
 
-# root = Tk()
-# canvas = Canvas(root, bg="black", height=1100, width=2000)
-# image = PhotoImage(file="us.gif")
-# # image = image.zoom(25)
-# # image = image.subsample(15)
-# # root.attributes("-fullscreen", True)
-# label = Label(root, image=image)
-# label.place(x=0, y=0)
-# canvas.pack()
-
-
 
 def main() -> None:
 
@@ -27,9 +16,10 @@ def main() -> None:
     pygame.init()
 
     pygame.init()
-    screen = pygame.display.set_mode(size=[1200, 625])
+    screen = pygame.display.set_mode([1200, 625], pygame.FULLSCREEN)
     bg_color = [255, 255, 255]
     screen.fill(bg_color)
+    black = [0, 0, 0]
     pygame.display.set_caption('Disease Graph')
     image = pygame.image.load('us.gif')
 
@@ -38,14 +28,45 @@ def main() -> None:
     fps = 60
     dt = 1 / fps
     clock = pygame.time.Clock()
+    font = pygame.font.Font("freesansbold.ttf", 16)
     while running:
-        # root.update()
         screen.fill(bg_color)
         screen.blit(image, (0, 0))
+
+        # New York
+        screen.blit(font.render("New York", True, black), [775, 170])
+        pygame.draw.circle(screen, black, (765, 175), 10)
+        # DC
+        screen.blit(font.render("DC", True, black), [735, 230])
+        pygame.draw.circle(screen, black, (735, 220), 10)
+        # Altanta
+        screen.blit(font.render("Atlanta", True, black), [630, 315])
+        pygame.draw.circle(screen, black, (630, 340), 10)
+        # Chicago
+        screen.blit(font.render("Chicago", True, black), [560, 165])
+        pygame.draw.circle(screen, black, (560, 190), 10)
+        # Austin
+        screen.blit(font.render("Austin", True, black), [420, 395])
+        pygame.draw.circle(screen, black, (420, 420), 10)
+        # LA
+        screen.blit(font.render("LA", True, black), [70, 295])
+        pygame.draw.circle(screen, black, (70, 320), 10)
+        # Minneapolis
+        screen.blit(font.render("Minneapolis", True, black), [480, 105])
+        pygame.draw.circle(screen, black, (480, 130), 10)
+        # Miami
+        screen.blit(font.render("Miami", True, black), [720, 465])
+        pygame.draw.circle(screen, black, (720, 490), 10)
+        # Seattle
+        screen.blit(font.render("Seattle", True, black), [80, 40])
+        pygame.draw.circle(screen, black, (80, 30), 10)
+        # Denver
+        screen.blit(font.render("Denver", True, black), [300, 240])
+        pygame.draw.circle(screen, black, (300, 230), 10)
+
         # Redraw
         for o in objects:
             pass
-            # o.draw(canvas)
 
         pygame.display.flip()
         # Event Loop
@@ -55,7 +76,6 @@ def main() -> None:
             elif e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_SPACE:
                     pass
-                    # root.attributes("-fullscreen", False)
 
 
 
