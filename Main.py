@@ -9,9 +9,15 @@ import random
 
 def main() -> None:
 
-    objects = [
+    objects = {
+        (765,175): [(735,220),(560, 190)],  #New York
+        (735, 220):[(630, 340),(560, 190)], #DC
+        (630, 340):[(420, 420),(720, 490)],  #Atlanta
+        (560, 190):[(630, 340),(480, 130)],  #Chicago
+        (480, 130):[(300, 230),(80, 30)],    #Minneapolis
+        (80, 30):[(70, 320),(300, 230)]     #Seattle
         # Vertices(pos=(200, 400))
-    ]
+    }
 
     pygame.init()
 
@@ -39,7 +45,7 @@ def main() -> None:
         # DC
         screen.blit(font.render("DC", True, black), [735, 230])
         pygame.draw.circle(screen, black, (735, 220), 10)
-        # Altanta
+        # Atlanta
         screen.blit(font.render("Atlanta", True, black), [630, 315])
         pygame.draw.circle(screen, black, (630, 340), 10)
         # Chicago
@@ -63,6 +69,11 @@ def main() -> None:
         # Denver
         screen.blit(font.render("Denver", True, black), [300, 240])
         pygame.draw.circle(screen, black, (300, 230), 10)
+
+        #Generates edges
+        for node in objects:
+            for neighbor in objects[node]:
+                pygame.draw.line(screen, (0,0,0), node, neighbor, 5)
 
         # Redraw
         for o in objects:
