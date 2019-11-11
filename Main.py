@@ -9,13 +9,14 @@ import random
 
 def main() -> None:
 
-    objects = {
+    cities = {
         (765,175): [(735,220),(560, 190)],  #New York
-        (735, 220):[(630, 340),(560, 190)], #DC
-        (630, 340):[(420, 420),(720, 490)],  #Atlanta
-        (560, 190):[(630, 340),(480, 130)],  #Chicago
-        (480, 130):[(300, 230),(80, 30)],    #Minneapolis
-        (80, 30):[(70, 320),(300, 230)]     #Seattle
+        (735, 220):[(630, 340),(560, 190),(765,175)], #DC
+        (630, 340):[(420, 420),(720, 490),(735, 220),(560, 190)],  #Atlanta
+        (560, 190):[(630, 340),(480, 130),(765,175),(735, 220),(420, 420),(300, 230)],  #Chicago
+        (480, 130):[(300, 230),(80, 30),(560, 190)],    #Minneapolis
+        (80, 30):[(70, 320),(300, 230),(480, 130)]     #Seattle
+
         # Vertices(pos=(200, 400))
     }
 
@@ -71,12 +72,12 @@ def main() -> None:
         pygame.draw.circle(screen, black, (300, 230), 10)
 
         #Generates edges
-        for node in objects:
-            for neighbor in objects[node]:
+        for node in cities:
+            for neighbor in cities[node]:
                 pygame.draw.line(screen, (0,0,0), node, neighbor, 5)
 
         # Redraw
-        for o in objects:
+        for c in cities:
             pass
 
         pygame.display.flip()
