@@ -3,7 +3,7 @@ from typing import Tuple, List
 import pygame
 from tkinter import *
 import Vertices
-import Edges
+from Edges import Edges
 import random
 
 
@@ -15,8 +15,10 @@ def main() -> None:
         (630, 340):[(420, 420),(720, 490),(735, 220),(560, 190)],  #Atlanta
         (560, 190):[(630, 340),(480, 130),(765,175),(735, 220),(420, 420),(300, 230)],  #Chicago
         (480, 130):[(300, 230),(80, 30),(560, 190)],    #Minneapolis
-        (80, 30):[(70, 320),(300, 230),(480, 130)]     #Seattle
-
+        (80, 30):[(70, 320),(300, 230),(480, 130)],     #Seattle
+        (420, 420):[(630, 340),(560, 190),(300, 230),(70, 320)] ,    #Austin
+        (300, 230):[(560, 190),(420, 420),(70, 320),(80, 30), (480, 130)],   #Denver
+        (70, 320):[(420, 420),(80, 30),(300, 230)]      #LA
         # Vertices(pos=(200, 400))
     }
 
@@ -71,10 +73,8 @@ def main() -> None:
         screen.blit(font.render("Denver", True, black), [300, 240])
         pygame.draw.circle(screen, black, (300, 230), 10)
 
-        #Generates edges
-        for node in cities:
-            for neighbor in cities[node]:
-                pygame.draw.line(screen, (0,0,0), node, neighbor, 5)
+        edges=Edges()
+        edges.generate_edges(screen,cities)
 
         # Redraw
         for c in cities:
