@@ -49,16 +49,16 @@ def main() -> None:
         screen.blit(font.render("DC", True, black), [735, 230])
         pygame.draw.circle(screen, black, (735, 220), 10)
         # Atlanta
-        screen.blit(font.render("Atlanta", True, black), [630, 315])
+        screen.blit(font.render("Atlanta", True, black), [640, 330])
         pygame.draw.circle(screen, black, (630, 340), 10)
         # Chicago
         screen.blit(font.render("Chicago", True, black), [560, 165])
         pygame.draw.circle(screen, black, (560, 190), 10)
         # Austin
-        screen.blit(font.render("Austin", True, black), [420, 395])
+        screen.blit(font.render("Austin", True, black), [430, 420])
         pygame.draw.circle(screen, black, (420, 420), 10)
         # LA
-        screen.blit(font.render("LA", True, black), [70, 295])
+        screen.blit(font.render("LA", True, black), [40, 295])
         pygame.draw.circle(screen, black, (70, 320), 10)
         # Minneapolis
         screen.blit(font.render("Minneapolis", True, black), [480, 105])
@@ -67,10 +67,10 @@ def main() -> None:
         screen.blit(font.render("Miami", True, black), [720, 465])
         pygame.draw.circle(screen, black, (720, 490), 10)
         # Seattle
-        screen.blit(font.render("Seattle", True, black), [80, 40])
+        screen.blit(font.render("Seattle", True, black), [20, 40])
         pygame.draw.circle(screen, black, (80, 30), 10)
         # Denver
-        screen.blit(font.render("Denver", True, black), [300, 240])
+        screen.blit(font.render("Denver", True, black), [320, 240])
         pygame.draw.circle(screen, black, (300, 230), 10)
 
         edges=Edges()
