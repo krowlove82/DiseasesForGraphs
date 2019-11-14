@@ -1,10 +1,25 @@
 from typing import Tuple, List
 
 import pygame
-from tkinter import *
-import Vertices
-from Edges import Edges
+import Edges
 import random
+
+class Button:
+    def __init__(self, width, height, center, text, background, font, id):
+        self.surface = pygame.Surface((width, height))
+        self.rect = self.surface.get_rect()
+        self.surface.fill(background)
+        self.rect.center = center
+        self.textSurf = font.render(text, 1, [0, 0, 0])
+        self.textRect = self.textSurf.get_rect(center = (width / 2, height / 2))
+        self.surface.blit(self.textSurf, self.textRect)
+        self.rect = pygame.Rect(center, (width, height))
+        self.id = id
+
+    def draw(self, screen):
+        screen.blit(self.surface, self.rect)
+        pygame.draw.rect(screen, [0, 0, 0], self.rect, 1)
+
 
 class Button:
     def __init__(self, width, height, center, text, background, font, id):
@@ -53,11 +68,12 @@ def main() -> None:
     black = [0, 0, 0]
     pygame.display.set_caption('Disease Graph')
     image = pygame.image.load('us.gif')
+    font = pygame.font.Font("freesansbold.ttf", 16)
 
     buttons = [
-        Button(80, 40, (900, 200), "Cholera", [0, 0, 150],font,  "Cholera"),
-        Button(100, 40, (900, 300), "Spanish Flu", [150, 0, 0],font,  "Flu"),
-        Button(80, 40, (900, 400), "Plague", [0, 150, 0],font, "Plague")
+        Button(80, 40, (900, 200), "Cholera", [0, 0, 150], font, "Cholera"),
+        Button(100, 40, (900, 300), "Spanish Flu", [150, 0, 0], font, "Flu"),
+        Button(80, 40, (900, 400), "Plague", [0, 150, 0], font, "Plague")
     ]
 
     # Game loop
@@ -65,7 +81,7 @@ def main() -> None:
     fps = 60
     dt = 1 / fps
     clock = pygame.time.Clock()
-    font = pygame.font.Font("freesansbold.ttf", 16)
+
     while running:
         screen.fill(bg_color)
         screen.blit(image, (0, 0))
@@ -109,6 +125,8 @@ def main() -> None:
 
         # Redraw
         for c in cities:
+
+        for o in edges:
             pass
 
         pygame.display.flip()
@@ -125,8 +143,6 @@ def main() -> None:
                             print("Flu clicked")
                         elif b.id == "Plague":
                             print("Plague clicked")
-
-
 
 
     # Shut down pygame
