@@ -4,6 +4,22 @@ import pygame
 import Edges
 import random
 
+class Button:
+    def __init__(self, width, height, center, text, background, font, id):
+        self.surface = pygame.Surface((width, height))
+        self.rect = self.surface.get_rect()
+        self.surface.fill(background)
+        self.rect.center = center
+        self.textSurf = font.render(text, 1, [0, 0, 0])
+        self.textRect = self.textSurf.get_rect(center = (width / 2, height / 2))
+        self.surface.blit(self.textSurf, self.textRect)
+        self.rect = pygame.Rect(center, (width, height))
+        self.id = id
+
+    def draw(self, screen):
+        screen.blit(self.surface, self.rect)
+        pygame.draw.rect(screen, [0, 0, 0], self.rect, 1)
+
 
 class Button:
     def __init__(self, width, height, center, text, background, font, id):
@@ -23,6 +39,19 @@ class Button:
 
 
 def main() -> None:
+
+    cities = {
+        (765,175): [(735,220),(560, 190)],  #New York
+        (735, 220):[(630, 340),(560, 190),(765,175)], #DC
+        (630, 340):[(420, 420),(720, 490),(735, 220),(560, 190)],  #Atlanta
+        (560, 190):[(630, 340),(480, 130),(765,175),(735, 220),(420, 420),(300, 230)],  #Chicago
+        (480, 130):[(300, 230),(80, 30),(560, 190)],    #Minneapolis
+        (80, 30):[(70, 320),(300, 230),(480, 130)],     #Seattle
+        (420, 420):[(630, 340),(560, 190),(300, 230),(70, 320)] ,    #Austin
+        (300, 230):[(560, 190),(420, 420),(70, 320),(80, 30), (480, 130)],   #Denver
+        (70, 320):[(420, 420),(80, 30),(300, 230)]      #LA
+        # Vertices(pos=(200, 400))
+    }
 
     edges = [
         # Edges("animal", random.randint(1, 15)),
@@ -47,7 +76,6 @@ def main() -> None:
         Button(80, 40, (900, 400), "Plague", [0, 150, 0], font, "Plague")
     ]
 
-
     # Game loop
     running = True
     fps = 60
@@ -64,17 +92,17 @@ def main() -> None:
         # DC
         screen.blit(font.render("DC", True, black), [735, 230])
         pygame.draw.circle(screen, black, (735, 220), 10)
-        # Altanta
-        screen.blit(font.render("Atlanta", True, black), [630, 315])
+        # Atlanta
+        screen.blit(font.render("Atlanta", True, black), [640, 330])
         pygame.draw.circle(screen, black, (630, 340), 10)
         # Chicago
         screen.blit(font.render("Chicago", True, black), [560, 165])
         pygame.draw.circle(screen, black, (560, 190), 10)
         # Austin
-        screen.blit(font.render("Austin", True, black), [420, 395])
+        screen.blit(font.render("Austin", True, black), [430, 420])
         pygame.draw.circle(screen, black, (420, 420), 10)
         # LA
-        screen.blit(font.render("LA", True, black), [70, 295])
+        screen.blit(font.render("LA", True, black), [40, 295])
         pygame.draw.circle(screen, black, (70, 320), 10)
         # Minneapolis
         screen.blit(font.render("Minneapolis", True, black), [480, 105])
@@ -83,16 +111,21 @@ def main() -> None:
         screen.blit(font.render("Miami", True, black), [720, 465])
         pygame.draw.circle(screen, black, (720, 490), 10)
         # Seattle
-        screen.blit(font.render("Seattle", True, black), [80, 40])
+        screen.blit(font.render("Seattle", True, black), [20, 40])
         pygame.draw.circle(screen, black, (80, 30), 10)
         # Denver
-        screen.blit(font.render("Denver", True, black), [300, 240])
+        screen.blit(font.render("Denver", True, black), [320, 240])
         pygame.draw.circle(screen, black, (300, 230), 10)
+
+        edges=Edges()
+        edges.generate_edges(screen,cities)
 
         for b in buttons:
             b.draw(screen)
 
         # Redraw
+        for c in cities:
+
         for o in edges:
             pass
 
@@ -110,9 +143,6 @@ def main() -> None:
                             print("Flu clicked")
                         elif b.id == "Plague":
                             print("Plague clicked")
-
-
-
 
 
     # Shut down pygame
