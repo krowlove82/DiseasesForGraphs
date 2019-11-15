@@ -1,5 +1,5 @@
-
 import pygame
+
 
 class Edges:
 
