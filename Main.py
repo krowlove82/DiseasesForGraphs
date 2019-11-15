@@ -1,9 +1,13 @@
 from typing import Tuple, List
 
 import pygame
+from pygame.math import Vector2
+
 from Edges import Edges
 import random
 from Button import Button
+from Vertices import Vertices
+
 
 #   also occur from
 
@@ -35,7 +39,6 @@ def render_paragraphs(screen, paragragh_font, black):
     screen.blit(paragragh_font.render("an average of 500 people worldwide annually.", True, black), [865, 540])
 
 
-
 def main() -> None:
     cities = {
         (765, 175): [(735, 220), (560, 190)],  # New York
@@ -47,7 +50,6 @@ def main() -> None:
         (420, 420): [(630, 340), (560, 190), (300, 230), (70, 320)],  # Austin
         (300, 230): [(560, 190), (420, 420), (70, 320), (80, 30), (480, 130)],  # Denver
         (70, 320): [(420, 420), (80, 30), (300, 230)]  # LA
-        # Vertices(pos=(200, 400))
     }
 
     edges = [
@@ -81,41 +83,35 @@ def main() -> None:
     clock = pygame.time.Clock()
     is_selected = False
     disease_selected = ""
+    city_selected = False
+
+    vertices = [
+        Vertices(10, pos=Vector2(765, 175), id="New York"),
+        Vertices(10, pos=Vector2(735, 220), id="DC"),
+        Vertices(10, pos=Vector2(630, 340), id="Atlanta"),
+        Vertices(10, pos=Vector2(560, 190), id="Chicago"),
+        Vertices(10, pos=Vector2(420, 420), id="Austin"),
+        Vertices(10, pos=Vector2(70, 320), id="LA"),
+        Vertices(10, pos=Vector2(480, 130), id="Minneapolis"),
+        Vertices(10, pos=Vector2(720, 490), id="Miami"),
+        Vertices(10, pos=Vector2(80, 30), id="Seattle"),
+        Vertices(10, pos=Vector2(300, 230), id="Denver")
+    ]
 
     while running:
         screen.fill(bg_color)
         screen.blit(image, (0, 0))
 
-        # New York
         screen.blit(font.render("New York", True, black), [775, 170])
-        pygame.draw.circle(screen, black, (765, 175), 10)
-        # DC
         screen.blit(font.render("DC", True, black), [735, 230])
-        pygame.draw.circle(screen, black, (735, 220), 10)
-        # Atlanta
         screen.blit(font.render("Atlanta", True, black), [640, 330])
-        pygame.draw.circle(screen, black, (630, 340), 10)
-        # Chicago
         screen.blit(font.render("Chicago", True, black), [560, 165])
-        pygame.draw.circle(screen, black, (560, 190), 10)
-        # Austin
         screen.blit(font.render("Austin", True, black), [430, 420])
-        pygame.draw.circle(screen, black, (420, 420), 10)
-        # LA
         screen.blit(font.render("LA", True, black), [40, 295])
-        pygame.draw.circle(screen, black, (70, 320), 10)
-        # Minneapolis
         screen.blit(font.render("Minneapolis", True, black), [480, 105])
-        pygame.draw.circle(screen, black, (480, 130), 10)
-        # Miami
         screen.blit(font.render("Miami", True, black), [720, 465])
-        pygame.draw.circle(screen, black, (720, 490), 10)
-        # Seattle
         screen.blit(font.render("Seattle", True, black), [20, 40])
-        pygame.draw.circle(screen, black, (80, 30), 10)
-        # Denver
         screen.blit(font.render("Denver", True, black), [320, 240])
-        pygame.draw.circle(screen, black, (300, 230), 10)
 
         edges = Edges()
         edges.generate_edges(screen, cities)
@@ -124,9 +120,8 @@ def main() -> None:
         for b in buttons:
             b.draw(screen)
 
-        # Redraw
-        for c in cities:
-            pass
+        for v in vertices:
+            v.draw(screen)
 
         pygame.display.flip()
         # Event Loop
@@ -134,6 +129,39 @@ def main() -> None:
             if e.type == pygame.QUIT or e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
                 running = False
             elif e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
+                for v in vertices:
+                    if v.rect.collidepoint(pygame.mouse.get_pos()):
+                        if v.id == "New York" and not city_selected and is_selected:
+                            city_selected = True
+                            v.change_color([255, 0, 255])
+                        elif v.id == "DC" and not city_selected and is_selected:
+                            city_selected = True
+                            v.change_color([255, 0, 255])
+                        elif v.id == "Atlanta" and not city_selected and is_selected:
+                            city_selected = True
+                            v.change_color([255, 0, 255])
+                        elif v.id == "Chicago" and not city_selected and is_selected:
+                            city_selected = True
+                            v.change_color([255, 0, 255])
+                        elif v.id == "Austin" and not city_selected and is_selected:
+                            city_selected = True
+                            v.change_color([255, 0, 255])
+                        elif v.id == "LA" and not city_selected and is_selected:
+                            city_selected = True
+                            v.change_color([255, 0, 255])
+                        elif v.id == "Minneapolis" and not city_selected and is_selected:
+                            city_selected = True
+                            v.change_color([255, 0, 255])
+                        elif v.id == "Miami" and not city_selected and is_selected:
+                            city_selected = True
+                            v.change_color([255, 0, 255])
+                        elif v.id == "Seattle" and not city_selected and is_selected:
+                            city_selected = True
+                            v.change_color([255, 0, 255])
+                        elif v.id == "Denver" and not city_selected and is_selected:
+                            city_selected = True
+                            v.change_color([255, 0, 255])
+
                 for b in buttons:
                     if b.rect.collidepoint(pygame.mouse.get_pos()):
                         if b.id == "Cholera":
