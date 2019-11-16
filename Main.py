@@ -37,6 +37,7 @@ def render_paragraphs(screen, paragragh_font, black):
 
 
 def main() -> None:
+    '''
     cities = {
         (765, 175): [(735, 220), (560, 190)],  # New York
         (735, 220): [(630, 340), (560, 190), (765, 175)],  # DC
@@ -49,14 +50,20 @@ def main() -> None:
         (70, 320): [(420, 420), (80, 30), (300, 230)]  # LA
         # Vertices(pos=(200, 400))
     }
+    '''
 
-    edges = [
-        # Edges("animal", random.randint(1, 15)),
-        # Edges("water", random.randint(1, 15)),
-        # Edges("air", random.randint(1, 15))
-    ]
-
-    pygame.init()
+    cities = {
+        (765, 175): [(735, 220), (560, 190)],  # New York
+        (735, 220): [(630, 340), (560, 190),(720,490)],  # DC
+        (630, 340): [(420, 420), (720, 490), (560, 190)],  # Atlanta
+        (560, 190): [ (480, 130),  (420, 420), (300, 230)],  # Chicago
+        (480, 130): [(300, 230), (80, 30)],  # Minneapolis
+        (80, 30): [(70, 320), (300, 230)],  # Seattle
+        (420, 420): [ (300, 230), (70, 320),(720,490)],  # Austin
+        (300, 230): [ (70, 320)],  # Denver
+        (70, 320): [ (300, 230)]  # LA
+        # Vertices(pos=(200, 400))
+    }
 
     pygame.init()
     screen = pygame.display.set_mode([1200, 625], pygame.FULLSCREEN)
@@ -81,6 +88,19 @@ def main() -> None:
     clock = pygame.time.Clock()
     is_selected = False
     disease_selected = ""
+
+    edges = []
+    # edges.generate_edges(screen, cities)
+    render_paragraphs(screen, paragragh_font, black)
+
+    # Generates edges
+    # edges={}
+
+    for node in cities:
+        for neighbor in cities[node]:
+            edge = Edges()
+            edge.add_edge(node, neighbor)
+            edges.append(edge)
 
     while running:
         screen.fill(bg_color)
@@ -117,9 +137,15 @@ def main() -> None:
         screen.blit(font.render("Denver", True, black), [320, 240])
         pygame.draw.circle(screen, black, (300, 230), 10)
 
-        edges = Edges()
-        edges.generate_edges(screen, cities)
-        render_paragraphs(screen, paragragh_font, black)
+        #New York-DC
+        screen.blit(font.render(str(edges[0].weight), True, black), [755, 200])
+        #New York-Chicago
+        screen.blit(font.render(str(edges[1].weight), True, black), [665,165])
+        #Dc-Atlanta
+        screen.blit(font.render(str(edges[2].weight), True, black), [690, 280])
+        #DC-Chicago
+        screen.blit(font.render(str(edges[3].weight), True, black), [650, 210])
+
 
         for b in buttons:
             b.draw(screen)
@@ -127,6 +153,9 @@ def main() -> None:
         # Redraw
         for c in cities:
             pass
+
+        for e in edges:
+            e.draw(screen)
 
         pygame.display.flip()
         # Event Loop
