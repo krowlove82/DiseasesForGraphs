@@ -106,7 +106,6 @@ def main() -> None:
 
     edges = []
     # edges.generate_edges(screen, cities)
-    render_paragraphs(screen, paragragh_font, black)
 
     # Generates edges
     # edges={}
@@ -118,9 +117,13 @@ def main() -> None:
             edge.generate_weights()
             edges.append(edge)
 
+
+
     while running:
         screen.fill(bg_color)
         screen.blit(image, (0, 0))
+
+        render_paragraphs(screen, paragragh_font, black)
 
         screen.blit(font.render("New York", True, black), [775, 170])
         screen.blit(font.render("DC", True, black), [745, 230])
