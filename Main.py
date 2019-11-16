@@ -63,7 +63,6 @@ def main() -> None:
         (80, 30): [(70, 320), (300, 230)],  # Seattle
         (420, 420): [ (300, 230), (70, 320),(720,490)],  # Austin
         (300, 230): [ (70, 320)],  # Denver
-        (70, 320): [ (300, 230)]  # LA
         # Vertices(pos=(200, 400))
     }
 
@@ -116,6 +115,7 @@ def main() -> None:
         for neighbor in cities[node]:
             edge = Edges()
             edge.add_edge(node, neighbor)
+            edge.generate_weights()
             edges.append(edge)
 
     while running:
@@ -123,13 +123,13 @@ def main() -> None:
         screen.blit(image, (0, 0))
 
         screen.blit(font.render("New York", True, black), [775, 170])
-        screen.blit(font.render("DC", True, black), [735, 230])
+        screen.blit(font.render("DC", True, black), [745, 230])
         screen.blit(font.render("Atlanta", True, black), [640, 330])
         screen.blit(font.render("Chicago", True, black), [560, 165])
-        screen.blit(font.render("Austin", True, black), [430, 420])
+        screen.blit(font.render("Austin", True, black), [420, 435])
         screen.blit(font.render("LA", True, black), [40, 295])
         screen.blit(font.render("Minneapolis", True, black), [480, 105])
-        screen.blit(font.render("Miami", True, black), [720, 465])
+        screen.blit(font.render("Miami", True, black), [730, 465])
         screen.blit(font.render("Seattle", True, black), [20, 40])
         screen.blit(font.render("Denver", True, black), [320, 240])
 
@@ -141,6 +141,36 @@ def main() -> None:
         screen.blit(font.render(str(edges[2].weight), True, black), [690, 280])
         #DC-Chicago
         screen.blit(font.render(str(edges[3].weight), True, black), [650, 210])
+        #DC-Miami
+        screen.blit(font.render(str(edges[4].weight), True, black), [735, 355])
+        #Atlanta-Austin
+        screen.blit(font.render(str(edges[5].weight), True, black), [535, 380])
+        #Atlata-Miami
+        screen.blit(font.render(str(edges[6].weight), True, black), [685, 400])
+        #Atlanta-Chicago
+        screen.blit(font.render(str(edges[7].weight), True, black), [600, 245])
+        #Chicago-Minneapolis
+        screen.blit(font.render(str(edges[8].weight), True, black), [520, 135])
+        #Chicago-Austin
+        screen.blit(font.render(str(edges[9].weight), True, black), [500, 300])
+        #Chicago-Denver
+        screen.blit(font.render(str(edges[10].weight), True, black), [440, 215])
+        #Minneapolis-Denver
+        screen.blit(font.render(str(edges[11].weight), True, black), [405, 175])
+        #Minneapolis-Seattle
+        screen.blit(font.render(str(edges[12].weight), True, black), [250, 80])
+        #Seattle-LA
+        screen.blit(font.render(str(edges[13].weight), True, black), [50, 170])
+        #Seattle-Denver
+        screen.blit(font.render(str(edges[14].weight), True, black), [170, 140])
+        #Austin-Denver
+        screen.blit(font.render(str(edges[15].weight), True, black), [370, 320])
+        #Austin-LA
+        screen.blit(font.render(str(edges[16].weight), True, black), [230, 375])
+        #Austin-Miami
+        screen.blit(font.render(str(edges[17].weight), True, black), [575, 440])
+        #Denver-LA
+        screen.blit(font.render(str(edges[18].weight), True, black), [180, 255])
 
 
         for b in buttons:
