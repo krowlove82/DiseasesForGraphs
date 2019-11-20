@@ -112,6 +112,12 @@ def main() -> None:
 
         render_paragraphs(screen, paragragh_font, black)
 
+        screen.blit(font.render("Legend for edges:", True, black), [35, 445])
+        screen.blit(font.render("Air", True, black), [60, 475])
+        screen.blit(font.render("Water", True, (0,0,255)), [60, 500])
+        screen.blit(font.render("Animals", True, (255,0,0)), [60, 525])
+
+
         screen.blit(font.render("New York", True, black), [775, 170])
         screen.blit(font.render("DC", True, black), [745, 230])
         screen.blit(font.render("Atlanta", True, black), [640, 330])
