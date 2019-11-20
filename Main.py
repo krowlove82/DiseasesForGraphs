@@ -162,6 +162,8 @@ def main() -> None:
         #Denver-LA
         screen.blit(font.render(str(edges[18].weight), True, black), [180, 255])
 
+        for e in edges:
+            e.draw(screen)
 
         for b in buttons:
             b.draw(screen)
@@ -169,8 +171,6 @@ def main() -> None:
         for v in vertices:
             v.draw(screen)
 
-        for e in edges:
-            e.draw(screen)
 
         pygame.display.flip()
         # Event Loop
