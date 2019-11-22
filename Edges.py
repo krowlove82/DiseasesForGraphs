@@ -12,7 +12,6 @@ class Edges:
     def add_edge(self,node,neighbor):
          self.first.append(node)
          self.second.append(neighbor)
-         self.generate_edge_type()
 
 
     def generate_weights(self):
@@ -23,10 +22,9 @@ class Edges:
 
     def draw(self,screen):
 
-        if (self.type == "air"):
-            pygame.draw.line(screen, (0,0,0), self.first[0], self.second[0], 5)
-        elif (self.type == "water"):
+        if (self.type == "water"):
             pygame.draw.line(screen, (0, 0, 255), self.first[0], self.second[0], 5)
-        else:
+        elif (self.type == "animals"):
             pygame.draw.line(screen, (255, 0, 0), self.first[0], self.second[0], 5)
-        pass
+        else:
+            pygame.draw.line(screen, (0, 0, 0), self.first[0], self.second[0], 5)

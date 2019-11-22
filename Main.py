@@ -38,6 +38,10 @@ def render_paragraphs(screen, paragragh_font, black):
     screen.blit(paragragh_font.render("Black Death is not eradicated, and still", True, black), [865, 520])
     screen.blit(paragragh_font.render("an average of 500 people worldwide annually.", True, black), [865, 540])
 
+def generateEdges(edges):
+    for e in edges:
+        e.generate_edge_type()
+
 
 def main() -> None:
 
@@ -102,6 +106,7 @@ def main() -> None:
             edge = Edges()
             edge.add_edge(node, neighbor)
             edge.generate_weights()
+            #edge.generate_edge_type()
             edges.append(edge)
 
 
@@ -251,6 +256,8 @@ def main() -> None:
                             b.change_background([255, 255, 0])
                             is_selected = True
                             disease_selected = "Plague"
+
+                        generateEdges(edges)
 
     # Shut down pygame
     pygame.quit()
