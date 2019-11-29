@@ -58,7 +58,7 @@ def generateEdges(cities, edges,type):
                 edge=random.randint(0, len(cityEdges)-1)
                 cityEdges[edge].type=type
             #Make sure compenents are connected
-            #Miami not always connected-need to fix this
+            #Miami and LA not always connected-need to fix this
 
 
 def main() -> None:
