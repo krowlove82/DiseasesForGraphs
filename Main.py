@@ -38,9 +38,27 @@ def render_paragraphs(screen, paragragh_font, black):
     screen.blit(paragragh_font.render("Black Death is not eradicated, and still", True, black), [865, 520])
     screen.blit(paragragh_font.render("an average of 500 people worldwide annually.", True, black), [865, 540])
 
-def generateEdges(edges):
+def isIncident(city, edges):
     for e in edges:
-        e.generate_edge_type()
+        if(e.first[0]==city or e.second[0]==city):
+            return True
+    return False
+
+
+
+
+def generateEdges(cities, edges,type):
+    for node in cities:
+        if isIncident(node,edges):
+            cityEdges=[]
+            for e in edges:
+                if (e.first[0] == node or e.second[0] == node):
+                    cityEdges.append(e)
+            for i in range(int(len(cityEdges)/2)):
+                edge=random.randint(0, len(cityEdges)-1)
+                cityEdges[edge].type=type
+            #Make sure compenents are connected
+            #Miami not always connected-need to fix this
 
 
 def main() -> None:
@@ -236,6 +254,11 @@ def main() -> None:
                             b.change_background([255, 255, 0])
                             is_selected = True
                             disease_selected = "Cholera"
+                            generateEdges(cities, edges, "water")
+
+                            for e in edges:
+                                if (e.type != "water"):
+                                    e.type = random.choice(["air", "animals"])
                         elif b.id == "Flu":
                             if is_selected:
                                 for bu in buttons:
@@ -246,6 +269,11 @@ def main() -> None:
                             b.change_background([255, 255, 0])
                             is_selected = True
                             disease_selected = "Flu"
+                            generateEdges(cities, edges, "air")
+
+                            for e in edges:
+                                if (e.type != "air"):
+                                    e.type = random.choice(["water", "animals"])
                         elif b.id == "Plague":
                             if is_selected:
                                 for bu in buttons:
@@ -256,8 +284,14 @@ def main() -> None:
                             b.change_background([255, 255, 0])
                             is_selected = True
                             disease_selected = "Plague"
+                            generateEdges(cities, edges, "animals")
 
-                        generateEdges(edges)
+                            for e in edges:
+                                if(e.type!="animals"):
+                                    e.type=random.choice(["air","water"])
+
+                        for e in edges:
+                            e.draw(screen)
 
     # Shut down pygame
     pygame.quit()

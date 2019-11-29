@@ -26,5 +26,7 @@ class Edges:
             pygame.draw.line(screen, (0, 0, 255), self.first[0], self.second[0], 5)
         elif (self.type == "animals"):
             pygame.draw.line(screen, (255, 0, 0), self.first[0], self.second[0], 5)
-        else:
+        elif (self.type == "air"):
             pygame.draw.line(screen, (0, 0, 0), self.first[0], self.second[0], 5)
+        else:
+            pygame.draw.line(screen, (255, 255, 0), self.first[0], self.second[0], 5)
