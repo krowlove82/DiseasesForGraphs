@@ -57,8 +57,24 @@ def generateEdges(cities, edges,type):
             for i in range(int(len(cityEdges)/2)):
                 edge=random.randint(0, len(cityEdges)-1)
                 cityEdges[edge].type=type
-            #Make sure compenents are connected
-            #Miami and LA not always connected-need to fix this
+
+    if isIncident((70, 320), edges):
+        cityEdges = []
+        for e in edges:
+            if (e.first[0] == (70, 320) or e.second[0] == (70, 320)):
+                cityEdges.append(e)
+        for i in range(int(len(cityEdges) / 2)):
+            edge = random.randint(0, len(cityEdges) - 1)
+            cityEdges[edge].type = type
+
+    if isIncident((720,490), edges):
+        cityEdges = []
+        for e in edges:
+            if (e.first[0] == (720,490) or e.second[0] == (720,490)):
+                cityEdges.append(e)
+        for i in range(int(len(cityEdges) / 2)):
+            edge = random.randint(0, len(cityEdges) - 1)
+            cityEdges[edge].type = type
 
 
 def main() -> None:
