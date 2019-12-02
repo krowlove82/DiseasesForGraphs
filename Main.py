@@ -144,9 +144,13 @@ def main() -> None:
             edges.append(edge)
 
 
-
+    connected_edges = []
+    vert = None
+    lowest = 11
+    all_done = False
+    vert_count = 0
+    generated = False
     while running:
-
         screen.fill(bg_color)
         screen.blit(image, (0, 0))
 
@@ -154,9 +158,8 @@ def main() -> None:
 
         screen.blit(font.render("Legend for edges:", True, black), [35, 445])
         screen.blit(font.render("Air", True, black), [60, 475])
-        screen.blit(font.render("Water", True, (0,0,255)), [60, 500])
-        screen.blit(font.render("Animals", True, (255,0,0)), [60, 525])
-
+        screen.blit(font.render("Water", True, (0, 0, 255)), [60, 500])
+        screen.blit(font.render("Animals", True, (255, 0, 0)), [60, 525])
 
         screen.blit(font.render("New York", True, black), [775, 170])
         screen.blit(font.render("DC", True, black), [745, 230])
@@ -169,49 +172,52 @@ def main() -> None:
         screen.blit(font.render("Seattle", True, black), [20, 40])
         screen.blit(font.render("Denver", True, black), [320, 240])
 
-        #New York-DC
+        # New York-DC
         screen.blit(font.render(str(edges[0].weight), True, black), [755, 200])
-        #New York-Chicago
-        screen.blit(font.render(str(edges[1].weight), True, black), [665,165])
-        #New York-Minneapolis
-        screen.blit(font.render(str(edges[2].weight),True,black),[625,135])
-        #Dc-Atlanta
+        # New York-Chicago
+        screen.blit(font.render(str(edges[1].weight), True, black), [665, 165])
+        # New York-Minneapolis
+        screen.blit(font.render(str(edges[2].weight), True, black), [625, 135])
+        # Dc-Atlanta
         screen.blit(font.render(str(edges[3].weight), True, black), [690, 280])
-        #DC-Chicago
+        # DC-Chicago
         screen.blit(font.render(str(edges[4].weight), True, black), [650, 210])
-        #DC-Miami
+        # DC-Miami
         screen.blit(font.render(str(edges[5].weight), True, black), [735, 355])
-        #Atlanta-Austin
+        # Atlanta-Austin
         screen.blit(font.render(str(edges[6].weight), True, black), [535, 380])
-        #Atlata-Miami
+        # Atlata-Miami
         screen.blit(font.render(str(edges[7].weight), True, black), [685, 400])
-        #Atlanta-Chicago
+        # Atlanta-Chicago
         screen.blit(font.render(str(edges[8].weight), True, black), [600, 245])
-        #Chicago-Minneapolis
+        # Chicago-Minneapolis
         screen.blit(font.render(str(edges[9].weight), True, black), [520, 145])
-        #Chicago-Austin
+        # Chicago-Austin
         screen.blit(font.render(str(edges[10].weight), True, black), [500, 300])
-        #Chicago-Denver
+        # Chicago-Denver
         screen.blit(font.render(str(edges[11].weight), True, black), [440, 215])
-        #Minneapolis-Denver
+        # Minneapolis-Denver
         screen.blit(font.render(str(edges[12].weight), True, black), [405, 175])
-        #Minneapolis-Seattle
+        # Minneapolis-Seattle
         screen.blit(font.render(str(edges[13].weight), True, black), [250, 80])
-        #Seattle-LA
+        # Seattle-LA
         screen.blit(font.render(str(edges[14].weight), True, black), [50, 170])
-        #Seattle-Denver
+        # Seattle-Denver
         screen.blit(font.render(str(edges[15].weight), True, black), [170, 140])
-        #Austin-Denver
+        # Austin-Denver
         screen.blit(font.render(str(edges[16].weight), True, black), [370, 320])
-        #Austin-LA
+        # Austin-LA
         screen.blit(font.render(str(edges[17].weight), True, black), [230, 375])
-        #Austin-Miami
+        # Austin-Miami
         screen.blit(font.render(str(edges[18].weight), True, black), [575, 440])
-        #Denver-LA
+        # Denver-LA
         screen.blit(font.render(str(edges[19].weight), True, black), [180, 255])
 
         for e in edges:
-            e.draw(screen)
+            if not e.selected:
+                e.draw(screen)
+            else:
+                e.draw(screen, [255, 0, 255])
 
         for b in buttons:
             b.draw(screen)
@@ -219,7 +225,45 @@ def main() -> None:
         for v in vertices:
             v.draw(screen)
 
-
+        if city_selected:
+            for v in vertices:
+                if v.id == the_city_selected:
+                    vert = v
+            for e in edges:
+                if disease_selected == "Cholera":
+                    if e.type == "water":
+                        if e.first[0] == vert.pos or e.second[0] == vert.pos:
+                            if not connected_edges.__contains__(e) and not e.selected:
+                                connected_edges.append(e)
+                elif disease_selected == "Flu":
+                    if e.type == "air":
+                        if e.first[0] == vert.pos or e.second[0] == vert.pos:
+                            if not connected_edges.__contains__(e) and not e.selected:
+                                connected_edges.append(e)
+                elif disease_selected == "Plague":
+                    if e.type == "animals":
+                        if e.first[0] == vert.pos or e.second[0] == vert.pos:
+                            if not connected_edges.__contains__(e) and not e.selected:
+                                connected_edges.append(e)
+            for ce in connected_edges:
+                if ce.weight < lowest and not ce.selected:
+                    lowest = ce.weight
+            for ce in connected_edges:
+                if ce.weight == lowest:
+                    ce.draw(screen, [255, 0, 255])
+                    ce.selected = True
+                    if ce.first[0] == vert.pos:
+                        temp = ce.second[0]
+                        for v in vertices:
+                            if v.pos == temp:
+                                the_city_selected = v.id
+                                v.change_color([255, 0, 255])
+                    elif ce.second[0] == vert.pos:
+                        temp = ce.first[0]
+                        for v in vertices:
+                            if v.pos == temp:
+                                the_city_selected = v.id
+                                v.change_color([255, 0, 255])
         pygame.display.flip()
         # Event Loop
         for e in pygame.event.get():
@@ -231,33 +275,43 @@ def main() -> None:
                         if v.id == "New York" and not city_selected and is_selected:
                             city_selected = True
                             v.change_color([255, 0, 255])
+                            the_city_selected = "New York"
                         elif v.id == "DC" and not city_selected and is_selected:
                             city_selected = True
                             v.change_color([255, 0, 255])
+                            the_city_selected = "DC"
                         elif v.id == "Atlanta" and not city_selected and is_selected:
                             city_selected = True
                             v.change_color([255, 0, 255])
+                            the_city_selected = "Atlanta"
                         elif v.id == "Chicago" and not city_selected and is_selected:
                             city_selected = True
                             v.change_color([255, 0, 255])
+                            the_city_selected = "Chicago"
                         elif v.id == "Austin" and not city_selected and is_selected:
                             city_selected = True
                             v.change_color([255, 0, 255])
+                            the_city_selected = "Austin"
                         elif v.id == "LA" and not city_selected and is_selected:
                             city_selected = True
                             v.change_color([255, 0, 255])
+                            the_city_selected = "LA"
                         elif v.id == "Minneapolis" and not city_selected and is_selected:
                             city_selected = True
                             v.change_color([255, 0, 255])
+                            the_city_selected = "Minneapolis"
                         elif v.id == "Miami" and not city_selected and is_selected:
                             city_selected = True
                             v.change_color([255, 0, 255])
+                            the_city_selected = "Miami"
                         elif v.id == "Seattle" and not city_selected and is_selected:
                             city_selected = True
                             v.change_color([255, 0, 255])
+                            the_city_selected = "Seattle"
                         elif v.id == "Denver" and not city_selected and is_selected:
                             city_selected = True
                             v.change_color([255, 0, 255])
+                            the_city_selected = "Denver"
 
                 for b in buttons:
                     if b.rect.collidepoint(pygame.mouse.get_pos()):
