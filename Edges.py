@@ -16,7 +16,7 @@ class Edges:
         self.second.append(neighbor)
 
     def generate_weights(self):
-        self.weight = random.randint(1, 10)
+        self.weight = random.randint(1, 20)
 
     def generate_edge_type(self):
         self.type = random.choice(["air", "water", "animals"])
