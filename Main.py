@@ -226,44 +226,51 @@ def main() -> None:
             v.draw(screen)
 
         if city_selected:
-            for v in vertices:
-                if v.id == the_city_selected:
-                    vert = v
-            for e in edges:
-                if disease_selected == "Cholera":
-                    if e.type == "water":
-                        if e.first[0] == vert.pos or e.second[0] == vert.pos:
-                            if not connected_edges.__contains__(e) and not e.selected:
-                                connected_edges.append(e)
-                elif disease_selected == "Flu":
-                    if e.type == "air":
-                        if e.first[0] == vert.pos or e.second[0] == vert.pos:
-                            if not connected_edges.__contains__(e) and not e.selected:
-                                connected_edges.append(e)
-                elif disease_selected == "Plague":
-                    if e.type == "animals":
-                        if e.first[0] == vert.pos or e.second[0] == vert.pos:
-                            if not connected_edges.__contains__(e) and not e.selected:
-                                connected_edges.append(e)
-            for ce in connected_edges:
-                if ce.weight < lowest and not ce.selected:
-                    lowest = ce.weight
-            for ce in connected_edges:
-                if ce.weight == lowest:
-                    ce.draw(screen, [255, 0, 255])
-                    ce.selected = True
-                    if ce.first[0] == vert.pos:
-                        temp = ce.second[0]
-                        for v in vertices:
-                            if v.pos == temp:
-                                the_city_selected = v.id
-                                v.change_color([255, 0, 255])
-                    elif ce.second[0] == vert.pos:
-                        temp = ce.first[0]
-                        for v in vertices:
-                            if v.pos == temp:
-                                the_city_selected = v.id
-                                v.change_color([255, 0, 255])
+            while vert_count < 10:
+                for v in vertices:
+                    if v.id == the_city_selected:
+                        vert = v
+                for e in edges:
+                    if disease_selected == "Cholera":
+                        if e.type == "water":
+                            if e.first[0] == vert.pos or e.second[0] == vert.pos:
+                                if not connected_edges.__contains__(e) and not e.selected:
+                                    connected_edges.append(e)
+                    elif disease_selected == "Flu":
+                        if e.type == "air":
+                            if e.first[0] == vert.pos or e.second[0] == vert.pos:
+                                if not connected_edges.__contains__(e) and not e.selected:
+                                    connected_edges.append(e)
+                    elif disease_selected == "Plague":
+                        if e.type == "animals":
+                            if e.first[0] == vert.pos or e.second[0] == vert.pos:
+                                if not connected_edges.__contains__(e) and not e.selected:
+                                    connected_edges.append(e)
+                for ce in connected_edges:
+                    if ce.weight < lowest and not ce.selected:
+                        lowest = ce.weight
+                for ce in connected_edges:
+                    if ce.weight == lowest:
+                        ce.draw(screen, [255, 0, 255])
+                        ce.selected = True
+                        if ce.first[0] == vert.pos:
+                            temp = ce.second[0]
+                            for v in vertices:
+                                if v.pos == temp:
+                                    the_city_selected = v.id
+                                    v.change_color([255, 0, 255])
+                        elif ce.second[0] == vert.pos:
+                            temp = ce.first[0]
+                            for v in vertices:
+                                if v.pos == temp:
+                                    the_city_selected = v.id
+                                    v.change_color([255, 0, 255])
+                for v in vertices:
+                    if v.color == [255, 0, 255]:
+                        vert_count += 1
+                lowest = 11
+                print(vert_count)
+
         pygame.display.flip()
         # Event Loop
         for e in pygame.event.get():
