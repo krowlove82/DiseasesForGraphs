@@ -268,7 +268,7 @@ def main() -> None:
                 for v in vertices:
                     if v.color == [255, 0, 255]:
                         vert_count += 1
-                lowest = 11
+                lowest = 21
                 print(vert_count)
 
         pygame.display.flip()
