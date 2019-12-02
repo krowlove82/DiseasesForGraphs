@@ -146,7 +146,7 @@ def main() -> None:
 
     connected_edges = []
     vert = None
-    lowest = 11
+    lowest = 21
     all_done = False
     vert_count = 0
     generated = False
