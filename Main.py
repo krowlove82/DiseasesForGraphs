@@ -146,6 +146,7 @@ def main() -> None:
 
 
     while running:
+
         screen.fill(bg_color)
         screen.blit(image, (0, 0))
 
