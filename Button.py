@@ -1,5 +1,6 @@
 import pygame
 
+
 class Button:
     def __init__(self, width, height, center, text, background, font, id):
         self.surface = pygame.Surface((width, height))

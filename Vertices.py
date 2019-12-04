@@ -15,7 +15,6 @@ class Vertices():
         self.rect = pygame.Rect(self.pos.x - 10, self.pos.y - 10, radius * 2, radius * 2)
 
     def draw(self, surface):
-        # pygame.draw.rect(surface, [0, 0, 0], self.rect, 1)
         pos = inting(self.pos.x, self.pos.y)
         pygame.draw.circle(surface, self.color, pos, round(self.radius))
 

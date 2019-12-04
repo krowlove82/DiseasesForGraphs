@@ -18,7 +18,6 @@ class Edges:
     def generate_weights(self):
         self.weight = random.randint(1, 20)
 
-
     def draw(self, screen, color=None):
         if self.type == "air":
             if color is None:
