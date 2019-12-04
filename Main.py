@@ -38,10 +38,9 @@ def render_paragraphs(screen, paragragh_font, black):
     screen.blit(paragragh_font.render("Black Death is not eradicated, and still", True, black), [865, 520])
     screen.blit(paragragh_font.render("an average of 500 people worldwide annually.", True, black), [865, 540])
 
-
+#Generates edge types, making sure that all vertices are connected by edges of the given type
 def generateEdges(cities, edges, type):
     for node in cities:
-        #if isIncident(node, edges):
         cityEdges = []
         for e in edges:
             if e.first[0] == node or e.second[0] == node:
