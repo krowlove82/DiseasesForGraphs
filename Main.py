@@ -245,20 +245,15 @@ def main() -> None:
                         for vs in selected_vertices:
                             if ce.first[0] == vs.pos:
                                 temp = ce.second[0]
-                                for v in unselected_vertices:
-                                    if v.pos == temp:
-                                        the_city_selected = v.id
-                                        for ve in vertices:
-                                            if ve.id == v.id:
-                                                ve.change_color([255, 0, 255])
                             elif ce.second[0] == vs.pos:
                                 temp = ce.first[0]
-                                for v in unselected_vertices:
-                                    if v.pos == temp:
-                                        the_city_selected = v.id
-                                        for ve in vertices:
-                                            if ve.id == v.id:
-                                                ve.change_color([255, 0, 255])
+                            for v in unselected_vertices:
+                                if v.pos == temp:
+                                    the_city_selected = v.id
+                                    for ve in vertices:
+                                        if ve.id == v.id:
+                                            ve.change_color([255, 0, 255])
+
                 lowest = 21
 
         pygame.display.flip()
