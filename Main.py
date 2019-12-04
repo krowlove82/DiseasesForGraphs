@@ -61,8 +61,8 @@ def main() -> None:
         (80, 30): [(70, 320), (300, 230)],  # Seattle
         (420, 420): [(300, 230), (70, 320), (720, 490)],  # Austin
         (300, 230): [(70, 320)],  # Denver
-        (70,320):[],
-        (720,490):[]
+        (70,320):[],        #LA
+        (720,490):[]        #Miami
         # Vertices(pos=(200, 400))
     }
 
@@ -87,6 +87,7 @@ def main() -> None:
     fps = 60
     dt = 1 / fps
     clock = pygame.time.Clock()
+
     is_selected = False
     disease_selected = ""
     city_selected = False
@@ -111,7 +112,6 @@ def main() -> None:
             edge = Edges()
             edge.add_edge(node, neighbor)
             edge.generate_weights()
-            # edge.generate_edge_type()
             edges.append(edge)
 
     connected_edges = []
@@ -206,7 +206,7 @@ def main() -> None:
             elif disease_selected == "Plague":
                 type = "animals"
 
-            while len(selected_vertices) < 9:
+            while len(selected_vertices) < 10:
                 connected_edges.clear()
                 for v in unselected_vertices:
                     if v.id == the_city_selected:
@@ -229,7 +229,6 @@ def main() -> None:
                                     connected_edges.append(e)
 
                 for ce in connected_edges:
-                    print(ce.weight)
                     if ce.weight < lowest and not ce.selected:
                         if not (any(x.pos == ce.first[0] for x in selected_vertices) and any(
                                 y.pos == ce.second[0] for y in selected_vertices)):
