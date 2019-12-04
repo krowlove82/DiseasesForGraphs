@@ -39,41 +39,17 @@ def render_paragraphs(screen, paragragh_font, black):
     screen.blit(paragragh_font.render("an average of 500 people worldwide annually.", True, black), [865, 540])
 
 
-def isIncident(city, edges):
-    for e in edges:
-        if e.first[0] == city or e.second[0] == city:
-            return True
-    return False
-
-
 def generateEdges(cities, edges, type):
     for node in cities:
-        if isIncident(node, edges):
-            cityEdges = []
-            for e in edges:
-                if e.first[0] == node or e.second[0] == node:
-                    cityEdges.append(e)
-            for i in range(int(len(cityEdges) / 2)):
-                edge = random.randint(0, len(cityEdges) - 1)
-                cityEdges[edge].type = type
-
-    if isIncident((70, 320), edges):
+        #if isIncident(node, edges):
         cityEdges = []
         for e in edges:
-            if e.first[0] == (70, 320) or e.second[0] == (70, 320):
+            if e.first[0] == node or e.second[0] == node:
                 cityEdges.append(e)
         for i in range(int(len(cityEdges) / 2)):
             edge = random.randint(0, len(cityEdges) - 1)
             cityEdges[edge].type = type
 
-    if isIncident((720, 490), edges):
-        cityEdges = []
-        for e in edges:
-            if e.first[0] == (720, 490) or e.second[0] == (720, 490):
-                cityEdges.append(e)
-        for i in range(int(len(cityEdges) / 2)):
-            edge = random.randint(0, len(cityEdges) - 1)
-            cityEdges[edge].type = type
 
 
 def main() -> None:
@@ -86,6 +62,8 @@ def main() -> None:
         (80, 30): [(70, 320), (300, 230)],  # Seattle
         (420, 420): [(300, 230), (70, 320), (720, 490)],  # Austin
         (300, 230): [(70, 320)],  # Denver
+        (70,320):[],
+        (720,490):[]
         # Vertices(pos=(200, 400))
     }
 
@@ -240,7 +218,6 @@ def main() -> None:
                     for vert in selected_vertices:
                         if e.type == type:
                             if e.first[0] == vert.pos or e.second[0] == vert.pos:
-                                # if not connected_edges.__contains__(e) and not e.selected:
                                 if e.first[0] not in selected_vertices and e.second[0] not in selected_vertices:
                                     connected_edges.append(e)
                         if e.type == type:
